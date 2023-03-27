@@ -1,37 +1,20 @@
 <template>
   <div class="app">
-    <form @submit.prevent>
-        <h4>Створення посту</h4>
-        <input
-         v-bind:value="title" 
-         @input="title = $event.target.value"
-         class="input" 
-         type="text" 
-         placeholder="Назва">
-        <input 
-        v-bind:value="body" 
-        @input="body = $event.target.value"
-        class="input"
-         type="text" 
-         placeholder="Опис">
-        <button 
-        class="btn"
-         @click="createPost">Створити
-         </button>
-
-    </form>
-    <div class="post" v-for="post in posts">
-        <div><strong>Назва :</strong> {{post.title}}</div>
-        <div><strong>Опис :</strong> {{post.body}}</div>
-  
-    </div>
+    <post-form/>
+    <post-list :posts="posts"/>
+    
 
   </div>
 </template>
 
 <script>
+import PostForm from '@/components/PostForm.vue';
+import PostList from '@/components/PostList.vue';
+
 export default {
+  components: { PostForm , PostList},
   data() {
+  
     return {
    posts:[
     {id :1 , title : "Vue" , body :"About Vue"},
@@ -55,12 +38,7 @@ export default {
    this.posts.push(newPost);
    this.title = "";
    this.body = "";
-
-
     },
-
-
-
   },
 };
 </script>
@@ -75,28 +53,6 @@ export default {
 .app{
     padding: 18px;
 }
-.post{
-    padding: 20px;
-    border: 2px solid teal;
-    margin: 12px;
-   
-}
-form{
-    display: flex;
-    flex-direction : column; 
-} 
-.input{
-    width: 100%;
-    border: 1px solid teal;
-    padding: 10px 16px;
-    margin-top: 12px;
-}
-.btn{
-    margin-top: 12px;
-    align-self: flex-end;
-    padding: 10px 14px;
-    background: none;
-    color: teal;
-    border: 1px solid teal;
-}
+
+
 </style>

@@ -1,34 +1,34 @@
 <template>
-    <div v-if="posts.length > 0">
-      <h3>Список пользователей</h3>
-      <transition-group name="user-list">
-        <post-item
-          v-for="post in posts"
-          :post="post"
-          :key="post.id"
-          @remove="$emit('remove', post)"
-        />
-      </transition-group>
+    <div class="post" v-for="post in posts">
+        <div><strong>Назва :</strong> {{post.title}}</div>
+        <div><strong>Опис :</strong> {{post.body}}</div>
+  
     </div>
-    <h2 v-else style="color: red">
-      Список пользователей пуст
-    </h2>
+   
   </template>
   
   <script>
-  import PostItem from "@/components/PostItem";
-  export default {
-    components: {PostItem},
-    props: {
-      posts: {
-        type: Array,
-        required: true
-      }
+ export default {
+//   components: {PostItem},
+  props: {
+    posts: {
+      type: Array,
+      required: true
     }
   }
+}
+
+ 
   </script>
   
   <style scoped>
+
+.post{
+    padding: 20px;
+    border: 2px solid teal;
+    margin: 12px;
+   
+}
   .user-list-item {
     display: inline-block;
     margin-right: 10px;
