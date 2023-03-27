@@ -8,15 +8,15 @@
   </template>
   
   <script>
- export default {
-//   components: {PostItem},
-  props: {
+  export default{
+    props: {
     posts: {
       type: Array,
       required: true
+        }
+
     }
   }
-}
 
  
   </script>
