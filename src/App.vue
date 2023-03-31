@@ -1,6 +1,9 @@
 <template>
   <div class="app">
     <h1>Сторінка з постами</h1>
+    
+
+    <my-input v-model="searchQuery" placeholder="Пошук....."/>
     <div class="app__btns">
       <my-button @click="showDialog" >Створити пост</my-button>
       <my-select 
@@ -12,7 +15,7 @@
       <post-form @create="createPost" />
     </my-dialog>
 
-    <post-list :posts="posts" @remove="removePost" v-if="!isPostLoading" />
+    <post-list :posts="sortedAndSearchedPosts" @remove="removePost" v-if="!isPostLoading" />
     <div v-else>Завантажується ...</div>
   </div>
 </template>
@@ -35,6 +38,10 @@ export default {
       ],
       dialogVisible: false,
       isPostLoading: false,
+      page:1,
+      limit:10,
+      totalPages:0,
+      searchQuery:"",
       selectedSort:"",
       sortOptions: [
             {value: 'title', name: 'По названию'},
@@ -60,11 +67,12 @@ export default {
           "https://jsonplaceholder.typicode.com/posts",
           {
             params: {
-              _page: 1,
-              _limit: 10,
+              _page: this.page,
+              _limit: this.limit,
             },
           }
         );
+        totalPages.value = Math.ceil(response.headers['x-total-count'] / limit)
         this.posts = response.data;
         // console.log(response);
       } catch (err) {
@@ -77,6 +85,23 @@ export default {
   mounted() {
     this.fetchPosts();
   },
+
+  computed: {
+  sortedPosts() {
+    return [...this.posts].sort((post1, post2) => post1[this.selectedSort]?.localeCompare(post2[this.selectedSort]));
+  },
+  sortedAndSearchedPosts(){
+    return this.sortedPosts.filter(post=>post.title.toLowerCase().includes(this.searchQuery.toLocaleLowerCase()))
+  }
+},
+
+  watch:{
+    // selectedSort(newValue){
+    //   this.posts.sort((post1 , post2)=>{
+    //   return post1[newValue]?.localeCompare(post2[newValue])
+    //   })
+    // },
+  }
 };
 </script>
 
@@ -86,6 +111,7 @@ export default {
   padding: 0;
   box-sizing: border-box;
   border-radius: 4px;
+  
 }
 
 .app {
