@@ -39,7 +39,7 @@
   background: white;
   border-radius: 12px;
   min-height: 100px;
-  min-width: 480px;
+  min-width: 360px;
   padding: 20px;
 }
 </style>

@@ -6,23 +6,18 @@
       <div><strong>Опис:</strong> {{ post.body }}</div>
     </div>
     <div class="post__btn">
-        <my-button
-        @click="$emit('remove' , post)"
-        >
-            Видалити
-        </my-button>
-
+      <my-button @click="$router.push(`/posts/${post.id}`)"> Відкрити </my-button>
+      <br>
+      <my-button @click="$emit('remove', post)"> Видалити </my-button>
     </div>
   </div>
 </template>
 
 <script>
-import { remove } from '@vue/shared';
-
+import { remove } from "@vue/shared";
 
 // console.log("post>>>>>>>>",post);
 export default {
-
   props: {
     post: {
       type: Array,
@@ -33,7 +28,6 @@ export default {
 </script>
 
 <style>
-
 .post {
   padding: 10px;
   border: 2px solid teal;
@@ -42,4 +36,10 @@ export default {
   align-items: center;
   justify-content: space-between;
 }
+.post__btns {
+  display: flex;
+
+}
+  
+
 </style>
