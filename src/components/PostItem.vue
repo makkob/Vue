@@ -38,8 +38,7 @@ export default {
 }
 .post__btns {
   display: flex;
-
-}
+  width: 92px;
   
-
+}
 </style>

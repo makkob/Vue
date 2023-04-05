@@ -122,7 +122,7 @@
             response.headers["x-total-count"] / this.limit
           );
           this.posts = [...this.posts , ...response.data];
-          // console.log(response);
+         
         } catch (err) {
           alert("Помилка");
           console.error(err);
